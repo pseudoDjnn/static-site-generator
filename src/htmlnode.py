@@ -13,10 +13,15 @@ class HTMLNode:
         return ""
       
       # Use list comphrehension to generate a list of ' key="value"' strings
-      attributes = [f' {key}="{value}' for key, value in self.props.items()]
+      attributes = [f' {key}="{value}"' for key, value in self.props.items()]
       
       # Join the list into a single string and return it
       return "".join(attributes)
     
     def __repr__(self):
-      pass
+      return (
+        f"HTMLNode(tag={self.tag!r}, "
+        f"value={self.value!r}, "
+        f"children={len(self.children) if self.children else 0}, "
+        f"props={self.props})"
+      )
