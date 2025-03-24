@@ -19,6 +19,11 @@ class TestTextNode(unittest.TestCase):
         node2 = TextNode("This is a text node", TextType.ITALIC)
         self.assertNotEqual(node, node2)
         
+    def test_not_eq_different_url(self):
+        node = TextNode("Link text", TextType.LINK, "https://example.com")
+        node2 = TextNode("Link text", TextType.LINK, "https://different-site.com")
+        self.assertNotEqual(node, node2)
+        
         
 
 if __name__=="__main__":
