@@ -27,15 +27,22 @@ class HTMLNode:
       )
       
 class LeafNode(HTMLNode):
-  def __init__(self, tag, value):
-    super().__init__(tag, value=value, children=None)
-    if not value:
+  # Make 'value' mandatory
+  def __init__(self, tag, value, props=None):
+    # Make sure 'children' set to None
+    super().__init__(tag, value=value, children=None, props=props)
+    if value is None:
       raise ValueError("All leaf nodes must have a value")
     
     
   def to_html(self):
+    # Check 'value' again for saftey
     if not self.value:
       raise ValueError("All leaf nodes must have a value")
     
+    # Just render text if we have no 'tag'
     if not self.tag:
       return self.value
+    
+    # Return the full HTML tag with props and vlaue
+    return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
