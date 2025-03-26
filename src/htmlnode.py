@@ -42,3 +42,27 @@ class LeafNode(HTMLNode):
     
     # Return the full HTML tag with props and vlaue
     return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+  
+  
+class ParentNode(HTMLNode):
+  # Make tag and children mandatory and props optional
+  def __init__(self, tag, children, props=None):
+    super().__init__(tag, children, props)
+    # Check to see it meets our requirements 
+    if tag is None:
+      raise ValueError("All parent nodes must have a tag")
+    
+    if children is None:
+      raise ValueError("All children nodes must have a value")
+    
+    if not children:
+      raise ValueError("All children nodes have cannot be empty")
+    
+  # First recursive call
+  def to_html(self):
+    # Check to see it meets our requirements 
+    if self.tag is None:
+      raise ValueError("All parent nodes must have a tag")
+    
+    if self.children is None:
+      raise ValueError("All children nodes must have a value")
