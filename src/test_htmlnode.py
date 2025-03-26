@@ -50,11 +50,13 @@ class TestLeafNode(unittest.TestCase):
   
   # Test case 3: No tag
   def test_leaf_to_html_no_tag(self):
-    pass
+    node = LeafNode(None, "Just text")
+    self.assertEqual(node.to_html(), "Just text")
   
   # Test case 4: Raise 'ValueError' when 'value' is None
   def test_leaf_to_html_no_value(self):
-    pass
+    with self.assertRaises(ValueError):
+      LeafNode("p", None)
     
 
 if __name__=="__main__":
