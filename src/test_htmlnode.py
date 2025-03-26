@@ -45,7 +45,8 @@ class TestLeafNode(unittest.TestCase):
     
   # Test case 2: An 'a' tag with 'href' prop
   def test_leaf_to_html_a_with_href(self):
-    pass
+    node = LeafNode("a", "Click here", props={"href": "https://www.google.com"})
+    self.assertEqual(node.to_html(), '<a href="https://www.google.com">Click here</a>')
   
   # Test case 3: No tag
   def test_leaf_to_html_no_tag(self):
