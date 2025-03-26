@@ -38,9 +38,23 @@ class TestHTMLNode(unittest.TestCase):
     
     
 class TestLeafNode(unittest.TestCase):
+  # Test case 1: A 'p' tag
   def test_leaf_to_html_p(self):
     node = LeafNode("p", "Hello world!")
     self.assertEqual(node.to_html(), "<p>Hello world!</p>")
+    
+  # Test case 2: An 'a' tag with 'href' prop
+  def test_leaf_to_html_a_with_href(self):
+    pass
+  
+  # Test case 3: No tag
+  def test_leaf_to_html_no_tag(self):
+    pass
+  
+  # Test case 4: Raise 'ValueError' when 'value' is None
+  def test_leaf_to_html_no_value(self):
+    pass
+    
 
 if __name__=="__main__":
     unittest.main()
