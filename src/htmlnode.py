@@ -29,6 +29,9 @@ class HTMLNode:
 class LeafNode(HTMLNode):
   # Make 'value' mandatory
   def __init__(self, tag, value, props=None):
+    # Check for None vlaue first
+    if value is None:
+      raise ValueError("All leaf nodes must have a value")
     # Make sure 'children' set to None
     super().__init__(tag, value=value, children=None, props=props)
     
