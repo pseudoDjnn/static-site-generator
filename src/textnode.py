@@ -1,5 +1,7 @@
 from enum import Enum
 
+from htmlnode import LeafNode
+
 class TextType(Enum):
     TEXT = "normal"
     BOLD = "bold"
@@ -22,8 +24,14 @@ class TextNode:
                 )
         
 
-    def text_node_to_html_node(text_node):
-        pass
+    def text_node_to_html_node(self, text, text_node):
+
+        if not isinstance(text_node, TextNode):
+            raise TypeError("Expected a TextNode instance")
+        
+        match (text_node, text_node.text_type):
+            case TextType.TEXT:
+                return LeafNode('', text)
     
 
     def __repr__(self):
