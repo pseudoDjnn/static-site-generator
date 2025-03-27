@@ -59,10 +59,8 @@ class ParentNode(HTMLNode):
       raise ValueError("All children nodes have cannot be empty")
     
   # First recursive call
-  def to_html(self):
-    # Check to see it meets our requirements 
-    if self.tag is None:
-      raise ValueError("All parent nodes must have a tag")
-    
-    if self.children is None:
-      raise ValueError("All children nodes must have a value")
+  def to_html(self, children):
+    children_html = []
+    for node in children:
+      children_html.append(node.to_html())
+    return f"<{self.tag}{children_html}></{self.tag}>"
