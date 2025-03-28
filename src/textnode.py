@@ -32,6 +32,14 @@ class TextNode:
         match (text_node, text_node.text_type):
             case TextType.TEXT:
                 return LeafNode('', text)
+            case TextType.BOLD:
+                return LeafNode('b', text)
+            case TextType.ITALIC:
+                return LeafNode('i', text)
+            case TextType.CODE:
+                return LeafNode('code', text)
+            case _:
+                raise Exception("Only us valid TextTypes")
     
 
     def __repr__(self):
