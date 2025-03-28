@@ -31,15 +31,19 @@ class TextNode:
         
         match (text_node, text_node.text_type):
             case TextType.TEXT:
-                return LeafNode('', text)
+                return LeafNode("", text)
             case TextType.BOLD:
-                return LeafNode('b', text)
+                return LeafNode("b", text)
             case TextType.ITALIC:
-                return LeafNode('i', text)
+                return LeafNode("i", text)
             case TextType.CODE:
-                return LeafNode('code', text)
+                return LeafNode("code", text)
+            case TextType.LINK:
+                return LeafNode("a", text_node.text, {"href": text_node.url})
+            case TextType.IMAGE:
+                return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
             case _:
-                raise Exception("Only us valid TextTypes")
+                raise Exception("Only use valid TextTypes")
     
 
     def __repr__(self):
