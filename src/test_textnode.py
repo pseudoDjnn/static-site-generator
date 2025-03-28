@@ -27,6 +27,9 @@ class TestTextNode(unittest.TestCase):
     def test_default_url(self):
         node = TextNode("Regular text", TextType.TEXT)
         self.assertEqual(node.url, None)
+    
+    def test_text(self):
+        pass
         
 
 if __name__=="__main__":
