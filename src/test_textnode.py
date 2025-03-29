@@ -35,7 +35,10 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, "This is a text node")
     
     def test_bold(self):
-        pass
+        node = TextNode("This is bold", TextType.BOLD)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "b")
+        self.assertEqual(html_node.value, "This is bold")
     
     def test_italic(self):
         pass
