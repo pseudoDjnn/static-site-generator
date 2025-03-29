@@ -67,7 +67,9 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.props, {"src": "https://example.com/image.png", "alt": "Alt text"})
     
     def test_invalid_type(self):
-        pass
+        node = TextNode("Invalid input", "not_a_valid_type")
+        with self.assertRaises(Exception):
+            text_node_to_html_node(node)
         
 
 if __name__=="__main__":
