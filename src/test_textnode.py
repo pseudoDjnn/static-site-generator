@@ -41,16 +41,30 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, "This is bold")
     
     def test_italic(self):
-        pass
+        node = TextNode("This is italic", TextType.ITALIC)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "i")
+        self.assertEqual(html_node.value, "This is italic")
     
     def test_code(self):
-        pass
+        node = TextNode("print('Hello World')", TextType.CODE)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "code")
+        self.assertEqual(html_node.value, "print('Hello World')")
     
     def test_link(self):
-        pass
+        node = TextNode("Click Me", TextType.LINK, "https://example.com")
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "Click Me")
+        self.assertEqual(html_node.props, {"href": "https://example.com"})
     
     def test_image(self):
-        pass
+        node = TextNode("Alt text", TextType.IMAGE, "https://example.com/image.png")
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "img")
+        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.props, {"src": "https://example.com/image.png", "alt": "Alt text"})
     
     def test_invalid_type(self):
         pass
