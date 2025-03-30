@@ -6,25 +6,19 @@ class HTMLNode:
       self.props = props
       
     def to_html(self):
-      raise NotImplementedError
+      raise NotImplementedError("to_html method not implemented")
     
     def props_to_html(self):
-      if not self.props:  #  Check for None or empty dictionary
+      if self.props is None:  #  Check for None or empty dictionary
         return ""
       
-      # Use list comphrehension to generate a list of ' key="value"' strings
-      attributes = [f' {key}="{value}"' for key, value in self.props.items()]
-      
-      # Join the list into a single string and return it
-      return "".join(attributes)
+      props_html = ""
+      for prop in self.props:
+        props_html += f' {prop}="{self.props[prop]}"'
+      return props_html
     
     def __repr__(self):
-      return (
-        f"HTMLNode(tag={self.tag!r}, "
-        f"value={self.value!r}, "
-        f"children={len(self.children) if self.children else 0}, "
-        f"props={self.props})"
-      )
+      return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
       
 class LeafNode(HTMLNode):
   # Make 'value' mandatory
