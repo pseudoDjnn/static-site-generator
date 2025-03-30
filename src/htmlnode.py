@@ -44,24 +44,23 @@ class LeafNode(HTMLNode):
 class ParentNode(HTMLNode):
   # Make tag and children mandatory and props optional
   def __init__(self, tag, children, props=None):
-    if children is None:
-      raise ValueError("All children nodes must have a child")
-    if not children:
-      raise ValueError("All children nodes cannot be empty")
-    super().__init__(tag, value=None, children=children, props=props)
+    super().__init__(tag, None, children, props)
     
   # First recursive call
   def to_html(self):
     # Check to see it meets our requirements 
     if self.tag is None:
-      raise ValueError("All parent nodes must have a tag")
+      raise ValueError("Invalid HTML: no tag")
+    if self.children is None:
+      raise ValueError("Invalid HTML: no children")
     
     # Create a list to call recursively
-    children_html = []
+    children_html = ''
     # Loops through our 'children' to make nesting easier to get through
-    for node in self.children:
-      # Our recursive call inside of the appended list
-      children_html.append(node.to_html())      
-    combined_html = ''.join(children_html)
-
-    return f"<{self.tag}{self.props_to_html()}>{combined_html}</{self.tag}>"
+    for child in self.children:
+      # Our recursive call
+      children_html += child.to_html()
+    return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
+  
+  def __repr__(self):
+    return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
