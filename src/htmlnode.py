@@ -23,9 +23,6 @@ class HTMLNode:
 class LeafNode(HTMLNode):
   # Make 'value' mandatory
   def __init__(self, tag, value, props=None):
-    # Check for None vlaue first
-    if value is None:
-      raise ValueError("All leaf nodes must have a value")
     # Make sure 'children' set to None
     super().__init__(tag, value=value, children=None, props=props)
     
@@ -37,9 +34,11 @@ class LeafNode(HTMLNode):
     # Just render text if we have no 'tag'
     if not self.tag:
       return self.value
-    
     # Return the full HTML tag with props and vlaue
     return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+  
+  def __repr__(self):
+    return f"LeadNode({self.tag}, {self.value}, {self.props})"
   
   
 class ParentNode(HTMLNode):
