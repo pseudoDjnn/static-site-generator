@@ -17,7 +17,26 @@ class TestHTMLNode(unittest.TestCase):
     )
   
   def test_values(self):
-    pass
+    node = HTMLNode(
+      "div",
+      "Lorem ipsum dolor sit amet"
+    )
+    self.assertEqual(
+      node.tag,
+      "div"
+    )
+    self.assertEqual(
+      node.value,
+      "Lorem ipsum dolor sit amet"
+    )
+    self.assertEqual(
+      node.children,
+      None
+    )
+    self.assertEqual(
+      node.props,
+      None
+    )
 
   def test_repr(self):
     pass
