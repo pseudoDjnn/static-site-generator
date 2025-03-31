@@ -29,6 +29,14 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(
             "TextNode(This is a text node, text, https://www.example.com)", repr(node)
             )
+        
+class TestTextNodeToHTMLNode(unittest.TestCase):
+    def test_text(self):
+        pass
+    def test_image(self):
+        pass
+    def test_bold(self):
+        pass
 
 if __name__=="__main__":
     unittest.main()
