@@ -39,7 +39,16 @@ class TestHTMLNode(unittest.TestCase):
     )
 
   def test_repr(self):
-    pass
+    node = HTMLNode(
+      "p",
+      "Lorem ipsum",
+      None,
+      {"class": "primary"}
+    )
+    self.assertEqual(
+      node.__repr__(),
+      "HTMLNode(p, Lorem ipsum, children: None, {'class': 'primary'})"
+    )
     
 
 if __name__=="__main__":
