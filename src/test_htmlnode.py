@@ -50,27 +50,32 @@ class TestHTMLNode(unittest.TestCase):
       "HTMLNode(p, Lorem ipsum, children: None, {'class': 'primary'})"
     )
     
-    # Testing the leaf nodes
-    def test_leaf_to_html_p(self):
-      pass
-    
-    def test_leaf_to_html_a(self):
-      pass
-    
-    def test_leaf_to_html_no_tag(self):
-      pass
-    
-    def tets_to_html_with_children(self):
-      pass
-    
-    def test_to_html_with_grandchildren(self):
-      pass
-    
-    def test_to_html_many_children(self):
-      pass
-    
-    def tets_headings(self):
-      pass
+  # Testing the leaf nodes
+  def test_leaf_to_html_p(self):
+    node = LeafNode("p", "Hello World")
+    self.assertEqual(node.to_html(), "<p>Hello World</p>")
+  
+  def test_leaf_to_html_a(self):
+    node = LeafNode("a", "Click here", {"href": "https://www.example.com"})
+    self.assertEqual(
+      node.to_html(),
+      '<a href="https://www.example.com">Click here</a>'
+    )
+  
+  def test_leaf_to_html_no_tag(self):
+    pass
+  
+  def tets_to_html_with_children(self):
+    pass
+  
+  def test_to_html_with_grandchildren(self):
+    pass
+  
+  def test_to_html_many_children(self):
+    pass
+  
+  def tets_headings(self):
+    pass
 
 if __name__=="__main__":
     unittest.main()
