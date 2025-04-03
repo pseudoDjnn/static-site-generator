@@ -88,6 +88,25 @@ class TestInlineMarkdown(unittest.TestCase):
     text = "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)"
     matches = extract_markdown_images(text)
     self.assertEqual([("image", "https://i.imgur.com/zjjcJKZ.png")], matches)
+    
+  def test_multiple_images(self):
+    text = (
+      "Here is one image ![first](https://example.com/first.png) "
+      "and the second ![second](https://example.com/second.jpg)."
+    )
+    matches = extract_markdown_images(text)
+    self.assertEqual([
+      ("first", "https://example.com/first.png"),
+      ("second", "https://example.com/second.jpg")
+    ], matches)
+
+  def test_no_images(self):
+    text = "This is just text, no image at all"
+    matches = extract_markdown_images(text)
+    self.assertListEqual([], matches)
+  
+  def test_malformed_image(self):
+    pass
   
 if __name__=="__main__":
   unittest.main()
