@@ -1,6 +1,6 @@
 import unittest
 
-from inline_markdown import split_nodes_delimiter, extract_markdown_images
+from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links
 
 from textnode import TextNode, TextType
 
@@ -106,7 +106,29 @@ class TestInlineMarkdown(unittest.TestCase):
     self.assertListEqual([], matches)
   
   def test_malformed_image(self):
-    pass
+    text = "This ![image](is missing a closing bracket"
+    matches = extract_markdown_images(text)
+    self.assertListEqual([], matches)
+  
+  def test_extract_markdown_links(self):
+    text = "This is text with a [link](https://example.com)"
+    matches = extract_markdown_links(text)
+    self.assertListEqual([("link", "https://example.com")], matches)
+
+  def tets_multiple_links(self):
+    text = (
+      "Click here [example1](https://example.com) and [example2](https://example2.com)"
+    )
+    matches = extract_markdown_links(text)
+    self.assertListEqual([
+      ("example1", "https://exmaple.com"),
+      ("example1", "https://example2.com")
+      ], matches)
+  
+  def test_no_links(self):
+    text = "This has no links, just words."
+    matches = extract_markdown_links(text)
+    self.assertListEqual([], matches)
   
 if __name__=="__main__":
   unittest.main()
