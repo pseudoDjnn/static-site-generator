@@ -1,6 +1,6 @@
 import unittest
 
-from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_links
+from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_links, text_to_textnodes
 
 from textnode import TextNode, TextType
 
@@ -162,6 +162,25 @@ class TestInlineMarkdown(unittest.TestCase):
         new_nodes,
     )
 
+  def test_text_to_textnodes(self):
+    text = "This is **bold** and _italic_ with `code` and an ![image](https://example.com/img.jpg) and a [link](https://example.com)"
+    
+    nodes = text_to_textnodes(text)
+    
+    expected_nodes = [
+        TextNode("This is ", TextType.TEXT),
+        TextNode("bold", TextType.BOLD),
+        TextNode(" and ", TextType.TEXT),
+        TextNode("italic", TextType.ITALIC),
+        TextNode(" with ", TextType.TEXT),
+        TextNode("code", TextType.CODE),
+        TextNode(" and an ", TextType.TEXT),
+        TextNode("image", TextType.IMAGE, "https://example.com/img.jpg"),
+        TextNode(" and a ", TextType.TEXT),
+        TextNode("link", TextType.LINK, "https://example.com")
+    ]
+    
+    self.assertListEqual(expected_nodes, nodes)
   
 if __name__=="__main__":
   unittest.main()
