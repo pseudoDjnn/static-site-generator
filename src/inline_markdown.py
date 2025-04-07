@@ -111,4 +111,52 @@ def split_nodes_image(old_nodes):
   return new_nodes
 
 def split_nodes_links(old_nodes):
-  pass
+    # create the same empty list as delimiter list
+  new_nodes = []
+
+  # Run our loop for the input
+  for old_node in old_nodes:
+    #  Just following the same format we did with the split above
+    if old_node.text_type != TextType.TEXT:
+      new_nodes.append(old_node)
+      continue
+    
+    # Extract images from the text we write
+    images = extract_markdown_links(old_node.text)
+
+    # If we have no images, just add the original ndoe
+    if len(images) == 0:
+      new_nodes.append(old_node)
+      continue
+    
+    # Start again with the full text
+    remaining_text = old_node.text
+    
+    for text, url in images:
+      # Create the full image markdown pattern to split on
+      image_markdown = f"[{text}]({url})"
+      
+      # Split the text into 'before image' and 'after image'
+      parts = remaining_text.split(image_markdown, 1)
+      
+      # The text before the image
+      before_text = parts[0]
+      
+      # Add a node for the text before the image (if not empty)
+      if before_text:
+        new_nodes.append(TextNode(before_text, TextType.TEXT))
+        
+      # Add a node for the image itself
+      new_nodes.append(TextNode(text,TextType.LINK, url))
+
+      # Update remaining_text to be everything after the image
+      if len(parts) > 1:
+        remaining_text = parts[1]
+      else:
+        remaining_text = ""
+
+    # Add any remaining text after the last image (if not empty) 
+    if remaining_text:
+      new_nodes.append(TextNode(remaining_text, TextType.TEXT))
+      
+  return new_nodes

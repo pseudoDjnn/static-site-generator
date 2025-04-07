@@ -1,6 +1,6 @@
 import unittest
 
-from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image
+from inline_markdown import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_links
 
 from textnode import TextNode, TextType
 
@@ -144,6 +144,20 @@ class TestInlineMarkdown(unittest.TestCase):
             TextNode(
                 "second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"
             ),
+        ],
+        new_nodes,
+    )
+    
+  def test_split_links(self):
+    node = TextNode(
+        "This is text with a [link](https://example.com)",
+        TextType.TEXT,
+    )
+    new_nodes = split_nodes_links([node])
+    self.assertListEqual(
+        [
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://example.com")
         ],
         new_nodes,
     )
