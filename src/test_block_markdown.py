@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import markdown_to_blocks
+from block_markdown import markdown_to_blocks, block_to_block_type, BlockType
 
 
 class TestBlockMarkdown(unittest.TestCase):
@@ -49,6 +49,25 @@ This paragraph has multiple newlines above it.
                 "> This is a blockquote"
             ]
         )
+        
+    def test_empty_markdown(self):
+        self.assertEqual(markdown_to_blocks(''),[])
+        
+    def test_markdown_with_only_newlines(self):
+        self.assertEqual(markdown_to_blocks("\n\n\n"), [])
+        
+        
+class TestBlockToBlockType(unittest.TestCase):
+    
+    # Test 1: Heading '#'
+    def test_haeading(self):
+        block = "# This is a heading"
+        self.assertEqual(block_to_block_type(block), BlockType.HEADING)
+        
+    # Test 2: Code Block "```"
+    def test_code(self):
+        block = "```\ndef example():\n  pass\n```"
+        self.assertEqual(block_to_block_type(block), BlockType.CODE)
 
 
 if __name__=="__main__":
