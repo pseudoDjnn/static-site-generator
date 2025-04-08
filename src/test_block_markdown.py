@@ -23,6 +23,32 @@ This is the same paragraph on a new line
                 "- This is a list\n- with items"
             ]
         )
+        
+    def test_markdown_to_blocks_with_multiple_newlines(self):
+        md = """
+# Heading
+
+
+This paragraph has multiple newlines above it.
+
+
+
+- List item 1
+- List item 2
+
+
+> This is a blockquote
+        """
+        blocks = markdown_to_blocks(md)        
+        self.assertEqual(
+            blocks,
+            [
+                "# Heading",
+                "This paragraph has multiple newlines above it.",
+                "- List item 1\n- List item 2",
+                "> This is a blockquote"
+            ]
+        )
 
 
 if __name__=="__main__":
