@@ -1,4 +1,3 @@
-import re
 from enum import Enum
 
 # Step 1: Define BlockType as an Enum
