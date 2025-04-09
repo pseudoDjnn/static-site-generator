@@ -68,6 +68,28 @@ class TestBlockToBlockType(unittest.TestCase):
     def test_code(self):
         block = "```\ndef example():\n  pass\n```"
         self.assertEqual(block_to_block_type(block), BlockType.CODE)
+        
+    # Test 3: Quote Block '>'
+    def test_quote(self):
+        block = "> This is a single-line quote"
+        self.assertEqual(block_to_block_type(block), BlockType.QUOTE)
+        multiline_block = "> Line 1\n> Line 2 of the quote"
+        self.assertEqual(block_to_block_type(multiline_block), BlockType.QUOTE)
+        
+    # Test 4: Unordered List '- '
+    def test_unordered_list(self):
+        block = "- Item one\n- Item 2"
+        self.assertEqual(block_to_block_type(block), BlockType.UNORDERED_LIST)
+        
+    # Test 5: Ordered List '1. ', '2. ', '3. '
+    def tset_ordered_list(self):
+        block = "1. First item\n2. Second item\n3. Third item"
+        self.assertEqual(block_to_block_type(block), BlockType.ORDERED_LIST)
+
+    # Test 6: Paragraphs
+    def test_paragraph(self):
+        block = "This is just a paragraph without any other BlockType."
+        self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
 
 
 if __name__=="__main__":
