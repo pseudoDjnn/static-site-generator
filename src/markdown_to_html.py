@@ -22,6 +22,14 @@ def create_quote_node(text):
     # Wrap and make sure to use 'blockquote'
     return ParentNode(tag="blockquote", children=[LeafNode(tag=None, value=cleaned_text)])
 
+def create_code_node(text):
+    if text.startswith("```") and text.endswith("```"):
+        cleaned_text = text[3:-3].strip()
+    else:
+        raise ValueError("Text must start and end with triple backticks")
+        
+    return ParentNode(tag="pre", children=[LeafNode(tag="code", value=cleaned_text)])
+
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     all_nodes = []
@@ -34,6 +42,8 @@ def markdown_to_html_node(markdown):
             node = create_heading_node(block)
         elif block_type == BlockType.QUOTE:
             node = create_quote_node(block)
+        elif block_type == BlockType.CODE:
+            node = create_code_node(block)
 
         else:
             continue    # Skip unhandled block tpyes for now
