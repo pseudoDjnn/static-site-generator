@@ -30,6 +30,10 @@ def markdown_to_html_node(markdown):
         block_type = block_to_block_type(block)
         if block_type == BlockType.PARAGRAPH:
             node = create_paragraph_node(block)
+        elif block_type == BlockType.HEADING:
+            node = create_heading_node(block)
+        elif block_type == BlockType.QUOTE:
+            node = create_quote_node(block)
 
         else:
             continue    # Skip unhandled block tpyes for now
