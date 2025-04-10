@@ -30,6 +30,12 @@ def create_code_node(text):
         
     return ParentNode(tag="pre", children=[LeafNode(tag="code", value=cleaned_text)])
 
+def create_unordered_list_node(text):
+    pass
+
+def create_ordered_list_node(text):
+    pass
+
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     all_nodes = []
@@ -46,6 +52,7 @@ def markdown_to_html_node(markdown):
             node = create_code_node(block)
 
         else:
+            print(f"Warning: Unhandled block type {block_type}")
             continue    # Skip unhandled block tpyes for now
         
         all_nodes.append(node)
