@@ -38,7 +38,8 @@ def create_unordered_list_node(text):
         if line.startswith(("-", "*")): # Recognize unordered list symbol
             # Strip the bullet point and leading/trailing whitespace
             item_text = line[1:].strip()
-            list_items.append(ParentNode(tag="li", children=[LeafNode(tag=None, value=item_text)]))
+            if item_text:
+                list_items.append(ParentNode(tag="li", children=[LeafNode(tag=None, value=item_text)]))
 
     # Return the parent <ul> node with all <li> children
     return ParentNode(tag="ul", children=list_items)
@@ -48,7 +49,12 @@ def create_ordered_list_node(text):
     list_items = []
 
     for line in lines:
-        pass
+        # Recognize ordered list items starting with numbers
+        if line.lstrip().split(" ", 1)[0].rstrip(".").isdigit():
+            # Strip the number and period, then clean whitespace
+            item_text = line.split(".", 1)[1].strip()
+            if item_text:
+                list_items.append(ParentNode(tag="li", children=[LeafNode(tag=None, value=item_text)]))
     
     return ParentNode(tag="ol", children=list_items)
 
