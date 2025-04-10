@@ -31,10 +31,26 @@ def create_code_node(text):
     return ParentNode(tag="pre", children=[LeafNode(tag="code", value=cleaned_text)])
 
 def create_unordered_list_node(text):
-    pass
+    lines = text.strip().split("\n")    # Split the block in individual lines
+    list_items = []
+
+    for line in lines:
+        if line.startswith(("-", "*")): # Recognize unordered list symbol
+            # Strip the bullet point and leading/trailing whitespace
+            item_text = line[1:].strip()
+            list_items.append(ParentNode(tag="li", children=[LeafNode(tag=None, value=item_text)]))
+
+    # Return the parent <ul> node with all <li> children
+    return ParentNode(tag="ul", children=list_items)
 
 def create_ordered_list_node(text):
-    pass
+    lines = text.strip().split("\n")
+    list_items = []
+
+    for line in lines:
+        pass
+    
+    return ParentNode(tag="ol", children=list_items)
 
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
@@ -50,7 +66,10 @@ def markdown_to_html_node(markdown):
             node = create_quote_node(block)
         elif block_type == BlockType.CODE:
             node = create_code_node(block)
-
+        elif block_type == BlockType.UNORDERED_LIST:
+            node = create_unordered_list_node(block)
+        elif block_type == BlockType.ORDERED_LIST:
+            node = create_ordered_list_node(block)
         else:
             print(f"Warning: Unhandled block type {block_type}")
             continue    # Skip unhandled block tpyes for now
