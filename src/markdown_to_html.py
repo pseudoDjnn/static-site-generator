@@ -72,9 +72,9 @@ def markdown_to_html_node(markdown):
             node = create_quote_node(block)
         elif block_type == BlockType.CODE:
             node = create_code_node(block)
-        elif block_type == BlockType.UNORDERED_LIST:
+        elif block_type == BlockType.ULIST:
             node = create_unordered_list_node(block)
-        elif block_type == BlockType.ORDERED_LIST:
+        elif block_type == BlockType.OLIST:
             node = create_ordered_list_node(block)
         else:
             print(f"Warning: Unhandled block type {block_type}")
