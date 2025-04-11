@@ -64,7 +64,20 @@ def markdown_to_html_node(markdown):
     return ParentNode("div", children, None)
 
 def block_to_html_node(block):
-    pass
+    block_type = block_to_block_type(block)
+    if block_type == BlockType.PARAGRAPH:
+        return paragraph_to_html_node(block)
+    if block_type == BlockType.HEADING:
+        return  paragraph_to_html_node(block)
+    if block_type == BlockType.CODE:
+        return paragraph_to_html_node(block)
+    if block_type ==BlockType.OLIST:
+        return paragraph_to_html_node(block)
+    if block_type == BlockType.ULIST:
+        return paragraph_to_html_node(block)
+    if block_type == BlockType.QUOTE:
+        return paragraph_to_html_node(block)
+    raise ValueError("invalid block type")
 
 def test_to_children(text):
     pass
