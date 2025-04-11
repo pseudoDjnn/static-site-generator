@@ -1,7 +1,7 @@
 from enum import Enum
 
 from htmlnode import ParentNode, LeafNode
-from block_markdown import markdown_to_blocks, block_to_block_type, BlockType
+from inline_markdown import text_to_textnodes
 from textnode import text_node_to_html_node, TextNode, TextType
 
 # Step 1: Define BlockType as an Enum
@@ -21,34 +21,30 @@ def markdown_to_blocks(markdown):
   filtered_blocks = []
   # Run a loop for the .strip() to work
   for block in blocks:
-      if block == "":
+        if block == "":
+            continue
         block = block.strip()  # Remove spaces at beginning and end
-      filtered_blocks.append(block)
+        filtered_blocks.append(block)
   return filtered_blocks
     
 # Step 3: Define the function to check the Enums
 def block_to_block_type(block):
     lines = block.split("\n")
-    
-    # Check 1: If it is a heading (1-6 '#' followed by a space)
-    if block.startswith("# ", "## ", "### ", "##### ", "##### ", "###### "):
+
+    if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.HEADING
-    # Check 2: If it is a code block (starts and ends with ```)
-    if len(lines) > 1 and lines[0].startswith("```") and lines[-1].endswith("```"):
+    if len(lines) > 1 and lines[0].startswith("```") and lines[-1].startswith("```"):
         return BlockType.CODE
-    # Check 3: If it is a quote block (every line starts with '>')
     if block.startswith(">"):
         for line in lines:
             if not line.startswith(">"):
                 return BlockType.PARAGRAPH
         return BlockType.QUOTE
-    # Check 4: If it is an unordered list (every line starts with '- ')
     if block.startswith("- "):
         for line in lines:
             if not line.startswith("- "):
                 return BlockType.PARAGRAPH
         return BlockType.ULIST
-    # Check if it's an ordered list (lines start with '1. ', '2. ', '3. ', etc...)
     if block.startswith("1. "):
         i = 1
         for line in lines:
@@ -56,12 +52,16 @@ def block_to_block_type(block):
                 return BlockType.PARAGRAPH
             i += 1
         return BlockType.OLIST
-    # If none of the above, it's a paragraph
     return BlockType.PARAGRAPH
 
 # Step 4: This is out converter and converts a ful markdown document into a single HTMLNode
 def markdown_to_html_node(markdown):
-    pass
+    blocks = markdown_to_blocks(markdown)
+    children = []
+    for block in blocks:
+        html_node = block_to_html_node(block)
+        children.append(html_node)
+    return ParentNode("div", children, None)
 
 def block_to_html_node(block):
     pass
