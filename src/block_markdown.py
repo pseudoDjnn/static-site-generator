@@ -1,5 +1,9 @@
 from enum import Enum
 
+from htmlnode import ParentNode, LeafNode
+from block_markdown import markdown_to_blocks, block_to_block_type, BlockType
+from textnode import text_node_to_html_node, TextNode, TextType
+
 # Step 1: Define BlockType as an Enum
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
@@ -55,3 +59,30 @@ def block_to_block_type(block):
     # If none of the above, it's a paragraph
     return BlockType.PARAGRAPH
 
+# Step 4: This is out converter and converts a ful markdown document into a single HTMLNode
+def markdown_to_html_node(markdown):
+    pass
+
+def block_to_html_node(block):
+    pass
+
+def test_to_children(text):
+    pass
+
+def paragraph_to_html_node(block):
+    pass
+
+def heading_to_html_node(block):
+    pass
+
+def code_to_html_node(block):
+    pass
+
+def olist_to_html_node(block):
+    pass
+
+def ulist_to_html_node(block):
+    pass
+
+def quote_to_html_node(block):
+    pass
