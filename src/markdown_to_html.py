@@ -1,4 +1,4 @@
-from htmlnode import HTMLNode, ParentNode, LeafNode
+from htmlnode import ParentNode, LeafNode
 from block_markdown import markdown_to_blocks, block_to_block_type, BlockType
 
 def create_paragraph_node(text):
