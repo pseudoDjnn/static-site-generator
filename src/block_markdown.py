@@ -79,8 +79,13 @@ def block_to_html_node(block):
         return paragraph_to_html_node(block)
     raise ValueError("invalid block type")
 
-def test_to_children(text):
-    pass
+def text_to_children(text):
+    text_nodes = text_to_textnodes(text)
+    children = []
+    for text_node in text_nodes:
+        html_node = text_node_to_html_node(text_node)
+        children.append(html_node)
+    return children
 
 def paragraph_to_html_node(block):
     pass
