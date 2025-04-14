@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import (
+from markdown_blocks import (
     markdown_to_html_node,
     markdown_to_blocks,
     block_to_block_type,
@@ -99,7 +99,22 @@ This is another paragraph with _italic_ text and `code` here
         )
         
     def test_lists(self):
-        pass
+        md = """
+- This is a list
+- with items
+- and _more_ items
+
+1. This is an `ordered` list
+2. with items
+3. and more items
+
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
+        )
     
     def test_headings(self):
         pass
