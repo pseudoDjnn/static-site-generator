@@ -117,7 +117,21 @@ This is another paragraph with _italic_ text and `code` here
         )
     
     def test_headings(self):
-        pass
+        md = """
+# This is an h1
+
+This is a paragraph text
+
+## This is an h2        
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><h1>This is an h1</h1><p>This is a paragraph text</p><h2>This is an h2</h2></div>"
+        )
     
     def test_blockquote(self):
         pass
