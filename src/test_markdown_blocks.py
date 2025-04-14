@@ -134,7 +134,20 @@ This is a paragraph text
         )
     
     def test_blockquote(self):
-        pass
+        md = """
+> This is a         
+> blockquote block
+
+This is a paragraph text
+
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><blockquote>This is a blockquote block</blockquote><p>This is a paragraph text</p></div>"
+        )
+
     
     def test_code(self):
         pass
