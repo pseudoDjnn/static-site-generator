@@ -5,7 +5,7 @@ def extract_title(markdown):
     # Iterate through each line
     for line in lines:
         # Check if the line starts with `#`
-        if line.starswith("# "):
+        if line.startswith("# "):
             return line[2:]
     # If no `h1` is found, raise error
     raise ValueError("No title found")
