@@ -18,10 +18,31 @@ class TestExtractTitle(unittest.TestCase):
         self.assertEqual(text, "This is a title")
         
     def test_eq_long(self):
-        pass
+        text = extract_title(
+            """
+# title
+
+this is a bunch
+
+of text
+
+- and
+- a
+- list
+"""
+        )
+        self.assertEqual(text, "title")
     
     def test_none(self):
-        pass
+        try:
+            extract_title(
+                """
+no title
+"""
+            )
+            self.fail("Should have raised an exception")
+        except Exception as e:
+            pass
 
 if __name__=="__main__":
     unittest.main()
