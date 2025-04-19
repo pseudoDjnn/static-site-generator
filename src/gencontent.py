@@ -1,5 +1,10 @@
 import os
+from pathlib import Path
 from markdown_blocks import markdown_to_html_node
+
+def generate_pages_recursively(dir_path_content, template_path, dest_dir_path):
+    for filename in os.listdir(dir_path_content):
+        pass
 
 def generate_pages(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
@@ -23,6 +28,7 @@ def generate_pages(from_path, template_path, dest_path):
         os.makedirs(dest_dir_path, exist_ok=True)
     to_file = open(dest_path, "w")
     to_file.write(template)
+    
 
 def extract_title(markdown):
     # Break the markdown into individual lines
