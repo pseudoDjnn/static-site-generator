@@ -32,8 +32,8 @@ def generate_page(from_path, template_path, dest_path, basepath):
     template = template.replace("{{ Content }}", html)
     
     # Fix paths in the HTML content(our images and or links)
-    template = template.replace('href="/', f'href="' + basepath)
-    template = template.replace('src="/', f'src="' + basepath)
+    template = template.replace('href="/', 'href="' + basepath)
+    template = template.replace('src="/', 'src="' + basepath)
 
     dest_dir_path = os.path.dirname(dest_path)
     if dest_dir_path != "":
