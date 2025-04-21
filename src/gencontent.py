@@ -30,7 +30,6 @@ def generate_page(from_path, template_path, dest_path, basepath):
     
     template = template.replace("{{ Title }}", title)
     template = template.replace("{{ Content }}", html)
-    template = template.replace("{{ basepath }}", basepath)
     
     # Fix paths in the HTML content(our images and or links)
     template = template.replace('href="/', f'href="' + basepath)
