@@ -5,15 +5,15 @@ from copystatic import copy_files_recursive
 from gencontent import generate_pages_recursive
 
 dir_path_static = "./static"
-dir_path_public = "./public"
+# Switched from "./public" to "./docs" to place onto github pages
+dir_path_public = "./docs"
 dir_path_content = "./content"
 template_path = "./template.html"
 
-basepath = sys.argv[1]
+if len(sys.argv) < 2:
+    raise ValueError("basepath argument is required.  Pass it as the first argument to the script.")
 
-if len(basepath) != 1:
-    default = "/"
-    sys.exit()
+basepath = sys.argv[1]
 
 def main():
     print("Deleting public directory...")
